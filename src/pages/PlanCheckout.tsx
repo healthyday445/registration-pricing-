@@ -72,6 +72,9 @@ const PlanCheckout = () => {
             return;
         }
 
+        const fullContact = `${dialCode}${phoneNumber}`;
+        console.log('Razorpay prefill contact:', fullContact, '| dialCode:', dialCode, '| phoneNumber:', phoneNumber);
+
         const options = {
             key: razorpayKey,
             amount: Number(plan.discountPrice) * 100,
@@ -86,7 +89,7 @@ const PlanCheckout = () => {
             prefill: {
                 name: "",
                 email: "",
-                contact: `${dialCode}${phoneNumber}`
+                contact: fullContact
             },
             notes: {
                 class_language: language,
