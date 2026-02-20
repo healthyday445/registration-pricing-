@@ -2,7 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import SharedHeader from '../components/SharedHeader';
 import SharedFooter from '../components/SharedFooter';
-import { CheckCircle, ArrowLeft, Gift } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
+
+const SolidCheckCircle = () => (
+    <svg aria-hidden="true" className="w-[18px] h-[18px] text-[#0D468B] flex-shrink-0 mt-[2px]" fill="currentColor" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+        <path d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"></path>
+    </svg>
+);
 
 const BestValueRibbon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M17.4999 9.16917H17.3533L15.8341 4.725L2.79492 9.16917L2.49992 9.16667M2.08325 9.17H2.49992L11.7883 1.75L14.1358 5.04167" stroke="#FEAB27" strokeWidth="2" strokeLinecap="square"></path><path d="M12.0832 13.3333C12.0832 13.8859 11.8637 14.4158 11.473 14.8065C11.0823 15.1972 10.5524 15.4167 9.99984 15.4167C9.4473 15.4167 8.9174 15.1972 8.5267 14.8065C8.136 14.4158 7.9165 13.8859 7.9165 13.3333C7.9165 12.7808 8.136 12.2509 8.5267 11.8602C8.9174 11.4695 9.4473 11.25 9.99984 11.25C10.5524 11.25 11.0823 11.4695 11.473 11.8602C11.8637 12.2509 12.0832 12.7808 12.0832 13.3333Z" stroke="#FEAB27" strokeWidth="2" strokeLinecap="square"></path><path d="M17.9166 9.16667V17.5H2.08325V9.16667H17.9166Z" stroke="#FEAB27" strokeWidth="2" strokeLinecap="square"></path><path d="M2.08325 9.16667H3.74992C3.74992 9.6087 3.57432 10.0326 3.26176 10.3452C2.9492 10.6577 2.52528 10.8333 2.08325 10.8333V9.16667ZM17.9166 9.16667H16.2499C16.2499 9.6087 16.4255 10.0326 16.7381 10.3452C17.0506 10.6577 17.4746 10.8333 17.9166 10.8333V9.16667ZM2.08325 17.5H3.75159C3.7518 17.2809 3.7088 17.0638 3.62504 16.8613C3.54127 16.6588 3.41839 16.4748 3.26343 16.3198C3.10847 16.1649 2.92447 16.042 2.72195 15.9582C2.51944 15.8745 2.3024 15.8315 2.08325 15.8317V17.5ZM17.9166 17.5H16.2499C16.2499 17.058 16.4255 16.6341 16.7381 16.3215C17.0506 16.0089 17.4746 15.8333 17.9166 15.8333V17.5Z" stroke="#FEAB27" strokeWidth="2" strokeLinecap="square"></path></svg>
@@ -119,44 +125,58 @@ const PlanCheckout = () => {
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 w-full">
                         {/* Left Column: Image and Benefits */}
                         <div>
-                            <div className="mb-6 rounded-3xl overflow-hidden">
+                            <div className="mb-8 rounded-[24px] overflow-hidden">
                                 <img
                                     src="https://healthyday.co.in/wp-content/uploads/2026/02/image-1.png"
                                     alt="Yoga pose"
-                                    className="w-full h-auto object-cover rounded-3xl"
+                                    className="w-full h-auto object-cover"
                                 />
                             </div>
 
-                            <h1 className="text-3xl md:text-[32px] leading-10 font-bold text-[#0D468B] mb-2">
+                            <h1 className="text-[28px] md:text-[32px] leading-tight font-bold text-[#0D468B] mb-6 text-center">
                                 You've selected the {plan.title}
                             </h1>
 
-                            <h2 className="text-xl md:text-[22px] text-slate-700 md:mb-6 mb-4 font-semibold">
+                            <h2 className="text-[18px] md:text-[20px] text-[#202020] mb-5 font-medium">
                                 Benefits to build strong wellness habits
                             </h2>
 
                             <ul className="space-y-4">
-                                <li className="flex items-center gap-4">
-                                    <CheckCircle className="w-5 h-5 text-[#0D468B] flex-shrink-0" />
-                                    <span className="text-[#202020] text-lg font-medium">Daily Yoga with JAGAN</span>
+                                <li className="flex items-start gap-3">
+                                    <SolidCheckCircle />
+                                    <span className="text-[#202020] text-[15px]">Daily Yoga with JAGAN</span>
                                 </li>
-                                <li className="flex items-center gap-4">
-                                    <CheckCircle className="w-5 h-5 text-[#0D468B] flex-shrink-0" />
-                                    <span className="text-[#202020] text-lg font-medium">{plan.title.replace(" Plan", "")} curated yoga streams (Recorded)</span>
+                                <li className="flex items-start gap-3">
+                                    <SolidCheckCircle />
+                                    <span className="text-[#202020] text-[15px]">
+                                        {plan.title.includes('Year') ? '12 Months' : plan.title.replace(" Plan", "")} curated yoga streams (Recorded)
+                                    </span>
+                                </li>
+                                <li className="flex items-start gap-3">
+                                    <SolidCheckCircle />
+                                    <span className="text-[#202020] text-[15px]">Face Yoga</span>
+                                </li>
+                                <li className="flex items-start gap-3">
+                                    <SolidCheckCircle />
+                                    <span className="text-[#202020] text-[15px]">Breathing Mastery</span>
+                                </li>
+                                <li className="flex items-start gap-3">
+                                    <SolidCheckCircle />
+                                    <span className="text-[#202020] text-[15px]">Diet-Sleep-Yoga Master Class</span>
                                 </li>
                                 {plan.title !== '3 Months Plan' && (
-                                    <li className="flex items-center gap-4">
-                                        <CheckCircle className="w-5 h-5 text-[#0D468B] flex-shrink-0" />
-                                        <span className="text-[#202020] text-lg font-medium">Monthly Surya Namaskar Challenge</span>
+                                    <li className="flex items-start gap-3">
+                                        <SolidCheckCircle />
+                                        <span className="text-[#202020] text-[15px]">Monthly Surya Namaskar Challenge</span>
                                     </li>
                                 )}
-                                <li className="flex items-center gap-4">
-                                    <CheckCircle className="w-5 h-5 text-[#0D468B] flex-shrink-0" />
-                                    <span className="text-[#202020] text-lg font-medium">WhatsApp Reminders</span>
+                                <li className="flex items-start gap-3">
+                                    <SolidCheckCircle />
+                                    <span className="text-[#202020] text-[15px]">WhatsApp Reminders</span>
                                 </li>
-                                <li className="flex items-center gap-4">
-                                    <CheckCircle className="w-5 h-5 text-[#0D468B] flex-shrink-0" />
-                                    <span className="text-[#202020] text-lg font-medium">Attendance and Community Membership</span>
+                                <li className="flex items-start gap-3">
+                                    <SolidCheckCircle />
+                                    <span className="text-[#202020] text-[15px]">Attendance and Community Membership</span>
                                 </li>
                             </ul>
                         </div>
@@ -164,52 +184,56 @@ const PlanCheckout = () => {
                         {/* Right Column: Checkout Form */}
                         <div className="lg:pl-4">
                             {/* Plan Card */}
-                            <div className="bg-white rounded-xl border border-[#D5D5D5] overflow-visible mb-6 relative pt-4">
+                            <div className="bg-white rounded-[14px] border border-[#0D468B] overflow-hidden mb-6 shadow-sm flex flex-col">
                                 {plan.isBestValue && (
-                                    <div className="absolute -top-4 -left-1 bg-[#0D468B] text-white py-1.5 rounded-r-lg shadow-md flex items-center px-4 space-x-2">
+                                    <div className="bg-[#0D468B] text-white py-2.5 px-4 flex items-center gap-2">
                                         <BestValueRibbon />
-                                        <span className="font-bold text-[14px]">Best Value</span>
+                                        <span className="font-bold text-[15px]">Best Value</span>
                                     </div>
                                 )}
-                                <div className="p-6 pt-4 pb-2">
-                                    <h3 className="text-[22px] font-bold text-[#0D468B] mb-1">{plan.title}</h3>
-                                    <div className="flex items-baseline gap-2 mb-2">
-                                        <span className="text-[#919191] line-through text-[18px] font-medium">₹{plan.originalPrice}/-</span>
+                                <div className="p-6">
+                                    <h3 className="text-[20px] font-bold text-[#0D468B] mb-2">{plan.title}</h3>
+                                    <div className="flex items-center gap-2 mb-3">
+                                        <span className="text-[#919191] line-through text-[18px] font-medium decoration-2">₹{plan.originalPrice}/-</span>
                                         <span className="text-[32px] font-bold text-[#0D468B]">₹{plan.discountPrice}/-</span>
                                     </div>
-                                    <div className="inline-block bg-[#ff0000] text-white text-[12px] font-bold px-3 py-1 mb-4 rounded-full">
+                                    <div className="inline-block bg-[#ff0000] text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase">
                                         {plan.discount}
                                     </div>
                                 </div>
                             </div>
 
                             {/* Form Card */}
-                            <div className="bg-white rounded-xl border border-[#D5D5D5] p-6 mb-8">
+                            <div className="bg-white rounded-[14px] border border-[#D5D5D5] p-6 mb-8 shadow-sm">
                                 <form onSubmit={handleCheckout}>
                                     <div className="mb-6">
                                         <label className="block text-[15px] font-bold text-[#202020] mb-2">
-                                            Your WhatsApp Number <span className="text-red-500">*</span>
+                                            Your WhatsApp Number <span className="text-[#ff0000]">*</span>
                                         </label>
-                                        <div className="flex bg-[#F9F9F9] border border-[#D5D5D5] rounded-md overflow-hidden">
-                                            <div className="flex items-center justify-center px-3 border-r border-[#D5D5D5]">
-                                                <span className="text-[15px] text-[#202020]">🇮🇳 +91</span>
+                                        <div className="flex bg-white border border-[#D5D5D5] rounded-md overflow-hidden focus-within:ring-1 focus-within:ring-[#0D468B] focus-within:border-[#0D468B]">
+                                            <div className="flex items-center justify-center px-4 py-3 border-r border-[#D5D5D5] bg-[#F9F9F9] cursor-pointer">
+                                                <img src="https://flagcdn.com/w20/in.png" alt="India Flag" className="w-[18px] h-auto mr-2 rounded-[2px]" />
+                                                <span className="text-[14px] text-[#4a4a4a] mr-1.5">+91</span>
+                                                <svg width="8" height="5" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M1 1L5 5L9 1" stroke="#4A4A4A" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                                </svg>
                                             </div>
                                             <input
                                                 type="tel"
                                                 required
                                                 value={phoneNumber}
                                                 onChange={(e) => setPhoneNumber(e.target.value)}
-                                                placeholder="Enter Your Whatsapp Number"
-                                                className="w-full bg-transparent px-4 py-3 text-[15px] focus:outline-none placeholder:text-[#919191]"
+                                                placeholder=""
+                                                className="w-full bg-transparent px-4 py-3 text-[15px] text-[#4a4a4a] focus:outline-none"
                                             />
                                         </div>
                                     </div>
 
-                                    <div className="mb-6">
-                                        <label className="block text-[15px] font-bold text-[#202020] mb-3">
+                                    <div className="mb-8 flex flex-col md:flex-row md:items-center gap-3 md:gap-4">
+                                        <label className="text-[14px] text-[#4a4a4a] whitespace-nowrap">
                                             Select Class Language:
                                         </label>
-                                        <div className="flex gap-4">
+                                        <div className="flex items-center gap-5">
                                             <label className="flex items-center gap-2 cursor-pointer">
                                                 <input
                                                     type="radio"
@@ -217,9 +241,9 @@ const PlanCheckout = () => {
                                                     value="Telugu"
                                                     checked={language === 'Telugu'}
                                                     onChange={(e) => setLanguage(e.target.value)}
-                                                    className="w-4 h-4 text-[#0D468B] accent-[#0D468B]"
+                                                    className="w-[15px] h-[15px] text-[#0D468B] accent-[#0D468B] cursor-pointer"
                                                 />
-                                                <span className="text-[#202020] text-[15px]">తెలుగు</span>
+                                                <span className="text-[#4a4a4a] text-[14px]">తెలుగు</span>
                                             </label>
                                             <label className="flex items-center gap-2 cursor-pointer">
                                                 <input
@@ -228,16 +252,16 @@ const PlanCheckout = () => {
                                                     value="English"
                                                     checked={language === 'English'}
                                                     onChange={(e) => setLanguage(e.target.value)}
-                                                    className="w-4 h-4 text-[#0D468B] accent-[#0D468B]"
+                                                    className="w-[15px] h-[15px] text-[#0D468B] accent-[#0D468B] cursor-pointer"
                                                 />
-                                                <span className="text-[#202020] text-[15px]">English</span>
+                                                <span className="text-[#4a4a4a] text-[14px]">English</span>
                                             </label>
                                         </div>
                                     </div>
 
                                     <button
                                         type="submit"
-                                        className="w-full bg-[#ffb129] hover:bg-white hover:text-[#0D468B] border-2 border-[#ffb129] text-[#202020] font-bold py-3.5 rounded-full transition-all duration-300 uppercase text-[15px] shadow-sm tracking-wide"
+                                        className="w-full bg-gradient-to-b from-[#ffb93d] to-[#f49c0c] hover:from-[#eebb4d] hover:to-[#e18e0a] text-[#202020] font-bold py-3 rounded-[50px] transition-all duration-300 uppercase text-[15px] shadow-sm tracking-wide"
                                     >
                                         Checkout
                                     </button>
@@ -250,19 +274,19 @@ const PlanCheckout = () => {
                                     <div className="mb-2">
                                         <SecurePaymentIcon />
                                     </div>
-                                    <span className="text-[11px] font-bold text-[#4a4a4a] leading-tight uppercase">SECURE<br />PAYMENT</span>
+                                    <span className="text-[14px] font-semibold text-[#0D468B] uppercase">SECURE PAYMENT</span>
                                 </div>
                                 <div className="flex flex-col items-center text-center">
                                     <div className="mb-2">
                                         <SslIcon />
                                     </div>
-                                    <span className="text-[11px] font-bold text-[#4a4a4a] leading-tight uppercase">SSL<br />ENCRYPTED</span>
+                                    <span className="text-[14px] font-semibold text-[#0D468B] uppercase">SSL ENCRYPTED</span>
                                 </div>
                                 <div className="flex flex-col items-center text-center">
                                     <div className="mb-2">
                                         <TrustedCommerceIcon />
                                     </div>
-                                    <span className="text-[11px] font-bold text-[#4a4a4a] leading-tight uppercase">TRUSTED<br />COMMERCE</span>
+                                    <span className="text-[14px] font-semibold text-[#0D468B] uppercase leading-tight">TRUSTED<br />COMMERCE</span>
                                 </div>
                             </div>
                         </div>
