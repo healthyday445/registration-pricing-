@@ -3,7 +3,6 @@ import SharedHeader from '../components/SharedHeader';
 import SharedFooter from '../components/SharedFooter';
 import SharedTestimonials from '../components/SharedTestimonials';
 import RegistrationSuccessPopup from '../components/RegistrationSuccessPopup';
-import AlreadyRegisteredPopup from '../components/AlreadyRegisteredPopup';
 import { Award, Users, Sun, Moon, Dumbbell, Wind, HeartPulse, Clock } from 'lucide-react';
 import frame129 from '../assets/image (36) (1).png';
 import smileySick from '../assets/streamline-freehand_smiley-sick-contageous.png';
@@ -15,7 +14,7 @@ const FreeProgrammes = () => {
         phone: '',
         language: 'Telugu'
     });
-    const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+    const [popupStatus, setPopupStatus] = useState<string | null>(null);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -24,8 +23,6 @@ const FreeProgrammes = () => {
             [name]: value
         }));
     };
-
-    const [showAlreadyRegisteredPopup, setShowAlreadyRegisteredPopup] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -51,14 +48,8 @@ const FreeProgrammes = () => {
 
             const data = await response.json().catch(() => ({}));
 
-            if (response.ok) {
-                if (data.status === 'already_registered') {
-                    setShowAlreadyRegisteredPopup(true);
-                } else {
-                    setShowSuccessPopup(true);
-                }
-            } else if (response.status === 409 || data.status === 'already_registered') {
-                setShowAlreadyRegisteredPopup(true);
+            if (response.ok || response.status === 409) {
+                setPopupStatus(data.status || 'success');
             } else {
                 console.error('Registration failed');
                 alert(`Registration failed: ${data.message || 'Please try again.'}`);
@@ -271,8 +262,12 @@ const FreeProgrammes = () => {
             </main>
 
             <SharedFooter />
-            <RegistrationSuccessPopup isOpen={showSuccessPopup} onClose={() => setShowSuccessPopup(false)} />
-            <AlreadyRegisteredPopup isOpen={showAlreadyRegisteredPopup} onClose={() => setShowAlreadyRegisteredPopup(false)} />
+            <RegistrationSuccessPopup
+                isOpen={popupStatus !== null}
+                onClose={() => setPopupStatus(null)}
+                status={popupStatus}
+                language={formData.language as 'Telugu' | 'English'}
+            />
         </div>
     );
 };

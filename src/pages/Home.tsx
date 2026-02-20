@@ -24,55 +24,10 @@ const Home = () => {
         }
     }, [location]);
 
-    const handlePayment = (amount: string) => {
-        const razorpayKey = import.meta.env.VITE_RAZORPAY_KEY_ID;
-
-        if (!razorpayKey) {
-            alert("Razorpay Key is missing! Please check your environment variables.");
-            return;
-        }
-
-        if (!window.Razorpay) {
-            alert("Razorpay SDK failed to load. Please check your internet connection.");
-            return;
-        }
-
-        const options = {
-            key: razorpayKey, // Enter the Key ID generated from the Dashboard
-            amount: Number(amount) * 100, // Amount is in currency subunits. Default currency is INR.
-            currency: "INR",
-            name: "Healthyday",
-            description: "Subscription Plan",
-            image: "/logo.png",
-            handler: function (response: any) {
-                // Payment Successful
-                // Redirect to Thank You page directly with payment ID
-                navigate('/thank-you', {
-                    state: {
-                        paymentId: response.razorpay_payment_id
-                    }
-                });
-            },
-            prefill: {
-                name: "",
-                email: "",
-                contact: ""
-            },
-            notes: {
-                address: "Razorpay Corporate Office"
-            },
-            theme: {
-                color: "#004e8c"
-            }
-        };
-
-        try {
-            const rzp1 = new window.Razorpay(options);
-            rzp1.open();
-        } catch (error) {
-            console.error("Razorpay Error:", error);
-            alert("Something went wrong with the payment gateway.");
-        }
+    const handleNavigationToCheckout = (plan: any) => {
+        navigate('/checkout', {
+            state: { plan }
+        });
     };
 
     const plans = [
@@ -118,13 +73,13 @@ const Home = () => {
             <SharedHeader />
 
             {/* Hero / Pricing Section */}
-            <main className="pt-24 md:pt-32 pb-6 md:pb-10 px-3 md:px-4" id="pricing">
+            <main className="pt-24 md:pt-32 pb-6 md:pb-10 px-4 md:px-6" id="pricing">
                 <div className="max-w-[1200px] mx-auto text-center pt-0 pb-4 md:py-[50px]">
                     <h3 className="text-[26px] leading-[32px] md:text-[50px] md:leading-[40px] font-semibold text-[#0D468B] mb-2 md:mb-3">
                         Most affordable Subscription Plans
                     </h3>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-12 max-w-6xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-12 max-w-[1200px] mx-auto">
                     {plans.map((plan, idx) => (
                         <div
                             key={idx}
@@ -149,7 +104,7 @@ const Home = () => {
                                     </span>
                                 </div>
                                 <button
-                                    onClick={() => handlePayment(plan.discountPrice)}
+                                    onClick={() => handleNavigationToCheckout(plan)}
                                     className="w-full bg-[#ffb129] hover:bg-white hover:text-[#0D468B] hover:border-[#ffb129] border-2 border-transparent text-[#202020] py-3 rounded-full font-bold shadow-md transition-all duration-300 uppercase"
                                 >
                                     {plan.buttonText}
@@ -165,13 +120,13 @@ const Home = () => {
                 </div>
 
                 {/* Overview Table */}
-                <div className="max-w-5xl mx-auto mb-12 relative">
+                <div className="max-w-[1200px] mx-auto mb-12 relative px-4 md:px-0">
                     {/* Highlight Column Background - Dynamic Position */}
                     <div
-                        className="block absolute top-[0px] bottom-0 w-[19%] md:w-[25%] bg-[#FFF8E7] border-2 border-[#0D468B] rounded-2xl -z-0 transition-all duration-300 ease-in-out left-[var(--mobile-left)] md:left-[var(--desktop-left)]"
+                        className="block absolute top-[0px] bottom-0 w-[22%] md:w-[25%] bg-[#FFF8E7] border-2 border-[#0D468B] rounded-2xl -z-0 transition-all duration-300 ease-in-out left-[var(--mobile-left)] md:left-[var(--desktop-left)]"
                         style={{
-                            '--mobile-left': `calc(${28 + (activePlan * 25)}% + ${4 - (activePlan * 8)}px)`,
-                            '--desktop-left': `${25 * (activePlan + 1)}%`
+                            '--mobile-left': `calc(${25 + (activePlan * 25)}% + ${16}px)`,
+                            '--desktop-left': `calc(${25 * (activePlan + 1)}% + 0px)`
                         } as React.CSSProperties}
                     ></div>
 

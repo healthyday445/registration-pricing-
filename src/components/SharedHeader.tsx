@@ -7,7 +7,7 @@ const SharedHeader = () => {
 
     return (
         <header className="absolute top-0 left-0 right-0 bg-white shadow-[0_4px_30px_rgba(0,0,0,0.1)] z-50 h-[80px]">
-            <div className="max-w-[1440px] mx-auto px-6 h-full flex items-center justify-between">
+            <div className="max-w-[1200px] mx-auto px-4 md:px-6 h-full flex items-center justify-between">
                 <div className="flex items-center space-x-2">
                     <div className="flex flex-col items-center">
                         <a href="https://healthyday.co.in/">

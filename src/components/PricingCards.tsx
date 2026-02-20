@@ -1,8 +1,10 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Gift } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const PricingCards = () => {
+  const navigate = useNavigate();
   const plans = [
     {
       duration: "1 Year",
@@ -73,7 +75,10 @@ const PricingCards = () => {
                   Just ₹{plan.perMonth}/month
                 </p>
 
-                <Button className="w-full bg-healthyday-orange hover:bg-healthyday-orange/90 text-white font-semibold py-6">
+                <Button
+                  onClick={() => navigate('/checkout', { state: { plan: { title: plan.duration + " Plan", duration: plan.duration, price: plan.price, discountPrice: plan.price, originalPrice: plan.originalPrice, discount: plan.discount, isBestValue: plan.isBestValue } } })}
+                  className="w-full bg-healthyday-orange hover:bg-healthyday-orange/90 text-white font-semibold py-6"
+                >
                   JOIN NOW
                 </Button>
               </CardContent>

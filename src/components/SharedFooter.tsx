@@ -3,7 +3,7 @@ import { Facebook, Instagram, ChevronUp } from 'lucide-react';
 const SharedFooter = () => {
     return (
         <footer className="bg-[#F7F5F4] pt-16 border-t border-slate-200 transition-colors duration-300 font-['Outfit']">
-            <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 pb-8">
+            <div className="max-w-[1200px] mx-auto px-4 md:px-6 pb-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8">
                     {/* Brand Column */}
                     <div className="lg:col-span-5">
@@ -68,7 +68,7 @@ const SharedFooter = () => {
                 </div>
             </div>
             <div className="mt-8 w-full">
-                <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 relative">
+                <div className="max-w-[1200px] mx-auto px-4 md:px-6 relative">
                     <div className="border-t border-slate-200 pt-8 relative">
                         <p className="text-center text-[16px] leading-[24px] font-normal text-slate-900 pb-8">
                             2026, Healthyday Healthtech Private Limited, All rights reserved
