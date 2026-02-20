@@ -3,8 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import SharedHeader from '../components/SharedHeader';
 import SharedFooter from '../components/SharedFooter';
 import { ArrowLeft } from 'lucide-react';
-import PhoneInput from 'react-phone-input-2';
-import 'react-phone-input-2/lib/style.css';
+import PhoneInputCustom from '../components/PhoneInputCustom';
 import StudentDetailsModal from '../components/StudentDetailsModal';
 
 const SolidCheckCircle = () => (
@@ -43,6 +42,7 @@ const PlanCheckout = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const [phoneNumber, setPhoneNumber] = useState('');
+    const [dialCode, setDialCode] = useState('+91');
     const [language, setLanguage] = useState('Telugu');
     const [showModal, setShowModal] = useState(false);
     const [paymentId, setPaymentId] = useState('');
@@ -86,7 +86,7 @@ const PlanCheckout = () => {
             prefill: {
                 name: "",
                 email: "",
-                contact: `+${phoneNumber.replace(/^\+/, '')}`
+                contact: `${dialCode}${phoneNumber}`
             },
             notes: {
                 class_language: language,
@@ -123,7 +123,7 @@ const PlanCheckout = () => {
 
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 w-full">
                         {/* Left Column: Image and Benefits */}
-                        <div>
+                        <div className="order-2 lg:order-1">
                             <div className="mb-8 rounded-[24px] overflow-hidden">
                                 <img
                                     src="https://healthyday.co.in/wp-content/uploads/2026/02/image-1.png"
@@ -181,15 +181,13 @@ const PlanCheckout = () => {
                         </div>
 
                         {/* Right Column: Checkout Form */}
-                        <div className="lg:pl-4">
+                        <div className="order-1 lg:order-2 lg:pl-4">
                             {/* Plan Card */}
                             <div className="bg-white rounded-[14px] border border-[#0D468B] overflow-hidden mb-6 shadow-sm flex flex-col">
-                                {plan.isBestValue && (
-                                    <div className="bg-[#0D468B] text-white py-2.5 px-4 flex items-center gap-2">
-                                        <BestValueRibbon />
-                                        <span className="font-bold text-[15px]">Best Value</span>
-                                    </div>
-                                )}
+                                <div className="bg-[#0D468B] text-white py-2.5 px-4 flex items-center gap-2">
+                                    <BestValueRibbon />
+                                    <span className="font-bold text-[15px]">Best Value</span>
+                                </div>
                                 <div className="p-6">
                                     <h3 className="text-[20px] font-bold text-[#0D468B] mb-2">{plan.title}</h3>
                                     <div className="flex items-center gap-2 mb-3">
@@ -209,32 +207,15 @@ const PlanCheckout = () => {
                                         <label className="block text-[15px] font-bold text-[#202020] mb-2">
                                             Your WhatsApp Number <span className="text-[#ff0000]">*</span>
                                         </label>
-                                        <PhoneInput
-                                            country={'in'}
+                                        <PhoneInputCustom
                                             value={phoneNumber}
-                                            onChange={phone => setPhoneNumber(phone)}
-                                            inputProps={{
-                                                required: true,
-                                                autoFocus: false,
-                                                placeholder: 'Enter Your Whatsapp Number'
+                                            onChange={(phone, code) => {
+                                                setPhoneNumber(phone);
+                                                setDialCode(code);
                                             }}
-                                            containerClass="focus-within:ring-1 focus-within:ring-[#0D468B] focus-within:border-[#0D468B] rounded-md transition-shadow"
-                                            inputStyle={{
-                                                width: '100%',
-                                                height: '48px',
-                                                fontSize: '15px',
-                                                color: '#4a4a4a',
-                                                borderColor: '#D5D5D5',
-                                                paddingLeft: '65px'
-                                            }}
-                                            buttonStyle={{
-                                                borderColor: '#D5D5D5',
-                                                backgroundColor: '#F9F9F9',
-                                                borderRight: '1px solid #D5D5D5',
-                                                borderRadius: '6px 0 0 6px',
-                                                padding: '0 8px',
-                                                width: '55px'
-                                            }}
+                                            placeholder="Enter Your Whatsapp Number"
+                                            required
+                                            defaultCountry="in"
                                         />
                                     </div>
 

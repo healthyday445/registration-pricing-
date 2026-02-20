@@ -120,37 +120,37 @@ const Home = () => {
                 </div>
 
                 {/* Overview Table */}
-                <div className="max-w-[1200px] mx-auto mb-12 relative px-4 md:px-0">
-                    {/* Highlight Column Background - Dynamic Position */}
-                    <div
-                        className="block absolute top-[0px] bottom-0 w-[22%] md:w-[25%] bg-[#FFF8E7] border-2 border-[#0D468B] rounded-2xl -z-0 transition-all duration-300 ease-in-out left-[var(--mobile-left)] md:left-[var(--desktop-left)]"
-                        style={{
-                            '--mobile-left': `calc(${25 + (activePlan * 25)}% + ${16}px)`,
-                            '--desktop-left': `calc(${25 * (activePlan + 1)}% + 0px)`
-                        } as React.CSSProperties}
-                    ></div>
+                <div className="max-w-[1200px] mx-auto mb-12 relative px-4 md:px-0 overflow-hidden">
 
                     <div className="relative z-10 bg-white/0">
-                        <div className="flex mb-4 px-4 text-center items-end py-4">
-                            <div className="w-1/4 text-left font-bold text-[#919191] text-[12px] md:text-[16px]">Features</div>
-                            <div onClick={() => setActivePlan(0)} className={`w-1/4 cursor-pointer transform transition-all duration-300 font-semibold ${activePlan === 0 ? 'text-[16px] md:text-[26px] leading-[24px] text-[#0D468B]' : 'text-[14px] md:text-[22px] leading-[24px] text-[#202020]'}`}>1 Year</div>
-                            <div onClick={() => setActivePlan(1)} className={`w-1/4 cursor-pointer transform transition-all duration-300 font-semibold ${activePlan === 1 ? 'text-[14px] md:text-[26px] leading-[24px] text-[#0D468B]' : 'text-[14px] md:text-[22px] leading-[24px] text-[#202020]'}`}>6 Months</div>
-                            <div onClick={() => setActivePlan(2)} className={`w-1/4 cursor-pointer transform transition-all duration-300 font-semibold ${activePlan === 2 ? 'text-[14px] md:text-[26px] leading-[24px] text-[#0D468B]' : 'text-[14px] md:text-[22px] leading-[24px] text-[#202020]'}`}>3 Months</div>
+                        {/* Highlight Column Background - Dynamic Position */}
+                        <div
+                            className="block absolute top-[0px] bottom-0 bg-[#FFF8E7] border-2 border-[#0D468B] rounded-2xl z-0 transition-all duration-300 ease-in-out"
+                            style={{
+                                width: 'calc((100% - 30%) / 3)',
+                                left: `calc(30% + ${activePlan} * (100% - 30%) / 3)`,
+                            } as React.CSSProperties}
+                        ></div>
+                        <div className="flex mb-4 px-2 md:px-4 text-center items-end py-4 relative z-[1]">
+                            <div className="w-[30%] text-left font-bold text-[#919191] text-[11px] md:text-[16px]">Features</div>
+                            <div onClick={() => setActivePlan(0)} className={`w-[calc(70%/3)] cursor-pointer transform transition-all duration-300 font-semibold ${activePlan === 0 ? 'text-[13px] md:text-[26px] leading-[20px] md:leading-[24px] text-[#0D468B]' : 'text-[12px] md:text-[22px] leading-[20px] md:leading-[24px] text-[#202020]'}`}>1 Year</div>
+                            <div onClick={() => setActivePlan(1)} className={`w-[calc(70%/3)] cursor-pointer transform transition-all duration-300 font-semibold ${activePlan === 1 ? 'text-[13px] md:text-[26px] leading-[20px] md:leading-[24px] text-[#0D468B]' : 'text-[12px] md:text-[22px] leading-[20px] md:leading-[24px] text-[#202020]'}`}>6 Months</div>
+                            <div onClick={() => setActivePlan(2)} className={`w-[calc(70%/3)] cursor-pointer transform transition-all duration-300 font-semibold ${activePlan === 2 ? 'text-[13px] md:text-[26px] leading-[20px] md:leading-[24px] text-[#0D468B]' : 'text-[12px] md:text-[22px] leading-[20px] md:leading-[24px] text-[#202020]'}`}>3 Months</div>
                         </div>
 
                         <div className="">
                             {features.map((feature, idx) => (
-                                <div key={idx} className="flex items-center py-2 md:py-4 hover:bg-slate-50/50 transition-colors border-b border-transparent md:border-none">
-                                    <div className="w-1/4 text-left font-bold text-[#202020] text-[14px] leading-[25px] px-1 md:text-[var(--e-global-color-astglobalcolor3)] md:text-[18px] md:leading-[24px] md:px-4">{feature.name}</div>
+                                <div key={idx} className="flex items-center py-2 md:py-4 hover:bg-slate-50/50 transition-colors border-b border-transparent md:border-none relative z-[1]">
+                                    <div className="w-[30%] text-left font-bold text-[#202020] text-[12px] leading-[18px] px-1 md:text-[18px] md:leading-[24px] md:px-4">{feature.name}</div>
 
-                                    <div onClick={() => setActivePlan(0)} className="w-1/4 flex justify-center cursor-pointer">
+                                    <div onClick={() => setActivePlan(0)} className="w-[calc(70%/3)] flex justify-center cursor-pointer">
                                         {feature.plan1 ? <Check className="w-4 h-4 md:w-7 md:h-7 text-[#0D468B]" strokeWidth={3} /> : <X className="w-4 h-4 md:w-7 md:h-7 text-[#ff0000]" strokeWidth={3} />}
                                     </div>
 
-                                    <div onClick={() => setActivePlan(1)} className="w-1/4 flex justify-center cursor-pointer">
+                                    <div onClick={() => setActivePlan(1)} className="w-[calc(70%/3)] flex justify-center cursor-pointer">
                                         {feature.plan2 ? <Check className="w-4 h-4 md:w-7 md:h-7 text-[#0D468B]" strokeWidth={3} /> : <X className="w-4 h-4 md:w-7 md:h-7 text-[#ff0000]" strokeWidth={3} />}
                                     </div>
-                                    <div onClick={() => setActivePlan(2)} className="w-1/4 flex justify-center cursor-pointer">
+                                    <div onClick={() => setActivePlan(2)} className="w-[calc(70%/3)] flex justify-center cursor-pointer">
                                         {feature.plan3 ? <Check className="w-4 h-4 md:w-7 md:h-7 text-[#0D468B]" strokeWidth={3} /> : <X className="w-4 h-4 md:w-7 md:h-7 text-[#ff0000]" strokeWidth={3} />}
                                     </div>
                                 </div>

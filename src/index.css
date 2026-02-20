@@ -137,34 +137,34 @@ All colors MUST be HSL.
   max-width: 100% !important;
 }
 
-/* Custom styles to match PhoneInput to design */
+/* Custom styles to match PhoneInput to reference design */
 .react-tel-input .form-control {
   width: 100% !important;
   border-radius: 6px !important;
-  background-color: transparent !important;
+  background-color: white !important;
 }
 
 .react-tel-input .flag-dropdown {
-  background-color: #F9F9F9 !important;
-  border: 1px solid #D5D5D5 !important;
-  border-right: none !important;
+  background-color: transparent !important;
+  border: none !important;
   border-radius: 6px 0 0 6px !important;
 }
 
 .react-tel-input .selected-flag {
-  width: 65px !important;
-  padding: 0 8px 0 12px !important;
+  width: 80px !important;
+  padding: 0 0 0 12px !important;
   background-color: transparent !important;
-  border-right: 1px solid #D5D5D5 !important;
+  border-right: none !important;
 }
 
 .react-tel-input .selected-flag:hover,
-.react-tel-input .selected-flag:focus {
-  background-color: #F0F0F0 !important;
+.react-tel-input .selected-flag:focus,
+.react-tel-input .selected-flag.open {
+  background-color: transparent !important;
 }
 
 .react-tel-input .selected-flag .arrow {
-  left: 45px !important;
+  left: 52px !important;
 }
 
 .w-full {
