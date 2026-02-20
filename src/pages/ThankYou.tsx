@@ -1,23 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { Facebook, Instagram, Youtube, Phone, ChevronUp } from 'lucide-react';
+import React from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Facebook, Instagram, Youtube, ChevronUp } from 'lucide-react';
 import logo from '../assets/healthyday-logo.png';
 import image from '../assets/Frame 129.png';
-import StudentDetailsModal from '../components/StudentDetailsModal';
 
 const ThankYou = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const [showFinalStepPopup, setShowFinalStepPopup] = useState(false);
-    const [paymentId, setPaymentId] = useState<string>('');
-
-    useEffect(() => {
-        // Check if we have a payment ID passed from navigation state
-        if (location.state?.paymentId) {
-            setPaymentId(location.state.paymentId);
-            setShowFinalStepPopup(true);
-        }
-    }, [location]);
+    const language = location.state?.language || 'English';
 
     const scrollToTop = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -46,11 +36,23 @@ const ThankYou = () => {
             }}>
                 <h1 className="text-3xl md:text-4xl font-bold mb-4 text-black">Thank you for trusting us for your<br />healthy life</h1>
 
-                <p className="text-gray-800 mb-6 font-medium">You will receive an update from us on WhatsApp.</p>
+                {language === 'Telugu' ? (
+                    <>
+                        <p className="text-gray-800 mb-6 font-medium">కాసేపట్లో మీకు WhatsApp లో update వస్తుంది</p>
 
-                <p className="text-gray-600 mb-8 max-w-lg">
-                    In case you didn't receive any message in next 5 Minutes, Please Whatsapp us on the below number
-                </p>
+                        <p className="text-gray-600 mb-8 max-w-lg">
+                            ఒకవేల 5 minutes లోపు మీకు ఎటువంటి confirmation రాకపోతే, ఈ కింది number కి మీరు whatsapp లో message చేయొచ్చు
+                        </p>
+                    </>
+                ) : (
+                    <>
+                        <p className="text-gray-800 mb-6 font-medium">You will receive an update from us on WhatsApp.</p>
+
+                        <p className="text-gray-600 mb-8 max-w-lg">
+                            In case you didn't receive any message in next 5 Minutes, Please Whatsapp us on the below number
+                        </p>
+                    </>
+                )}
 
                 <a
                     href="https://wa.me/919052888968"
@@ -163,14 +165,6 @@ const ThankYou = () => {
                     </div>
                 </div>
             </footer>
-
-            {/* Student Details Popup */}
-            <StudentDetailsModal
-                isOpen={showFinalStepPopup}
-                paymentId={paymentId}
-                onClose={() => setShowFinalStepPopup(false)}
-                onSuccess={() => setShowFinalStepPopup(false)}
-            />
         </div>
     );
 };

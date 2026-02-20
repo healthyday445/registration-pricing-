@@ -1,25 +1,33 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Loader2 } from 'lucide-react';
+import { State, City } from 'country-state-city';
 
 interface StudentDetailsModalProps {
     isOpen: boolean;
     paymentId: string;
+    mobile: string;
     onClose: () => void;
     onSuccess: () => void;
 }
 
-const StudentDetailsModal: React.FC<StudentDetailsModalProps> = ({ isOpen, paymentId, onClose, onSuccess }) => {
+const StudentDetailsModal: React.FC<StudentDetailsModalProps> = ({ isOpen, paymentId, mobile, onClose, onSuccess }) => {
     const [formData, setFormData] = useState({
         name: '',
-        mobile: '',
         city: '',
         state: ''
     });
+
+    const [selectedStateCode, setSelectedStateCode] = useState('');
+    const [states, setStates] = useState<any[]>([]);
+    const [cities, setCities] = useState<any[]>([]);
+
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
-    if (!isOpen) return null;
+    useEffect(() => {
+        setStates(State.getStatesOfCountry('IN'));
+    }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         setFormData({
@@ -28,21 +36,31 @@ const StudentDetailsModal: React.FC<StudentDetailsModalProps> = ({ isOpen, payme
         });
     };
 
+    const handleStateChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const stateCode = e.target.value;
+        setSelectedStateCode(stateCode);
+
+        const stateName = states.find(s => s.isoCode === stateCode)?.name || '';
+        setFormData({
+            ...formData,
+            state: stateName,
+            city: ''
+        });
+
+        setCities(City.getCitiesOfState('IN', stateCode));
+    };
+
+    if (!isOpen) return null;
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
         setError('');
 
-        if (!formData.name || !formData.mobile || !formData.city || !formData.state) {
+        if (!formData.name || !formData.city || !formData.state) {
             setError("All fields are required");
             setLoading(false);
             return;
-        }
-
-        // Format mobile number to E.164 (prepend +91 if not present)
-        let formattedMobile = formData.mobile.trim();
-        if (!formattedMobile.startsWith('+')) {
-            formattedMobile = `+91${formattedMobile}`;
         }
 
         try {
@@ -55,7 +73,8 @@ const StudentDetailsModal: React.FC<StudentDetailsModalProps> = ({ isOpen, payme
                 },
                 body: JSON.stringify({
                     ...formData,
-                    mobile: formattedMobile
+                    mobile: mobile,
+                    paymentId: paymentId
                 })
             });
 
@@ -87,11 +106,10 @@ const StudentDetailsModal: React.FC<StudentDetailsModalProps> = ({ isOpen, payme
                 {/* Header */}
                 <div className="bg-[#004e8c] pt-8 pb-6 px-4 text-center relative">
                     <div className="absolute top-0 right-0 w-20 h-20 bg-white/5 rounded-full -mr-10 -mt-10"></div>
-                    <h3 className="text-white font-bold text-lg mb-2">Payment successful <span className="font-normal text-sm opacity-90">(ref id:</span></h3>
-                    <div className="inline-block bg-[#003865] rounded-md px-3 py-1 border border-white/20">
-                        <span className="text-white font-mono text-sm tracking-wide">{paymentId || "PAY_ID_12345"}</span>
-                        <span className="text-white font-normal text-sm opacity-90"> )</span>
-                    </div>
+                    <h3 className="text-white font-bold text-lg mb-2">
+                        Payment Successful <br />
+                        <span className="font-normal text-sm opacity-90">(Ref No. {paymentId || "PAY_ID_12345"})</span>
+                    </h3>
                 </div>
 
                 <div className="p-6">
@@ -114,42 +132,41 @@ const StudentDetailsModal: React.FC<StudentDetailsModalProps> = ({ isOpen, payme
                             onChange={handleChange}
                             className="w-full px-4 py-3 rounded-lg border border-slate-300 text-slate-700 placeholder:text-slate-400 focus:border-[#ffb129] focus:ring-1 focus:ring-[#ffb129] outline-none transition-all text-sm"
                             placeholder="Name"
+                            required
                         />
 
-                        <input
-                            type="tel"
-                            name="mobile"
-                            value={formData.mobile}
-                            onChange={handleChange}
-                            className="w-full px-4 py-3 rounded-lg border border-slate-300 text-slate-700 placeholder:text-slate-400 focus:border-[#ffb129] focus:ring-1 focus:ring-[#ffb129] outline-none transition-all text-sm"
-                            placeholder="Mobile Number"
-                        />
-
-                        {/* Using text inputs for City/State as we don't have a list, but styled to match the look */}
                         <div className="relative">
-                            <input
-                                type="text"
+                            <select
                                 name="state"
-                                value={formData.state}
-                                onChange={handleChange}
-                                className="w-full px-4 py-3 rounded-lg border border-slate-300 text-slate-700 placeholder:text-slate-400 focus:border-[#ffb129] focus:ring-1 focus:ring-[#ffb129] outline-none transition-all text-sm bg-white"
-                                placeholder="State"
-                            />
-                            {/* Chevron down icon fake */}
+                                value={selectedStateCode}
+                                onChange={handleStateChange}
+                                className="w-full px-4 py-3 rounded-lg border border-slate-300 text-slate-700 bg-white focus:border-[#ffb129] focus:ring-1 focus:ring-[#ffb129] outline-none transition-all text-sm appearance-none"
+                                required
+                            >
+                                <option value="" disabled>Select State</option>
+                                {states.map((state) => (
+                                    <option key={state.isoCode} value={state.isoCode}>{state.name}</option>
+                                ))}
+                            </select>
                             <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6" /></svg>
                             </div>
                         </div>
 
                         <div className="relative">
-                            <input
-                                type="text"
+                            <select
                                 name="city"
                                 value={formData.city}
                                 onChange={handleChange}
-                                className="w-full px-4 py-3 rounded-lg border border-slate-300 text-slate-700 placeholder:text-slate-400 focus:border-[#ffb129] focus:ring-1 focus:ring-[#ffb129] outline-none transition-all text-sm bg-white"
-                                placeholder="City"
-                            />
+                                className="w-full px-4 py-3 rounded-lg border border-slate-300 text-slate-700 bg-white focus:border-[#ffb129] focus:ring-1 focus:ring-[#ffb129] outline-none transition-all text-sm appearance-none disabled:bg-slate-100"
+                                required
+                                disabled={!selectedStateCode}
+                            >
+                                <option value="" disabled>Select City</option>
+                                {cities.map((city) => (
+                                    <option key={city.name} value={city.name}>{city.name}</option>
+                                ))}
+                            </select>
                             <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6" /></svg>
                             </div>

@@ -3,6 +3,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import SharedHeader from '../components/SharedHeader';
 import SharedFooter from '../components/SharedFooter';
 import { ArrowLeft } from 'lucide-react';
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
+import StudentDetailsModal from '../components/StudentDetailsModal';
 
 const SolidCheckCircle = () => (
     <svg aria-hidden="true" className="w-[18px] h-[18px] text-[#0D468B] flex-shrink-0 mt-[2px]" fill="currentColor" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
@@ -41,6 +44,8 @@ const PlanCheckout = () => {
     const navigate = useNavigate();
     const [phoneNumber, setPhoneNumber] = useState('');
     const [language, setLanguage] = useState('Telugu');
+    const [showModal, setShowModal] = useState(false);
+    const [paymentId, setPaymentId] = useState('');
 
     const plan = location.state?.plan || defaultPlan;
 
@@ -75,22 +80,16 @@ const PlanCheckout = () => {
             description: `${plan.title} Subscription`,
             image: "/logo.png",
             handler: function (response: any) {
-                navigate('/thank-you', {
-                    state: {
-                        paymentId: response.razorpay_payment_id,
-                        plan: plan.title,
-                        language: language,
-                        phone: phoneNumber
-                    }
-                });
+                setPaymentId(response.razorpay_payment_id);
+                setShowModal(true);
             },
             prefill: {
                 name: "",
                 email: "",
-                contact: phoneNumber
+                contact: `+${phoneNumber.replace(/^\+/, '')}`
             },
             notes: {
-                language: language,
+                class_language: language,
                 plan: plan.title
             },
             theme: {
@@ -210,23 +209,33 @@ const PlanCheckout = () => {
                                         <label className="block text-[15px] font-bold text-[#202020] mb-2">
                                             Your WhatsApp Number <span className="text-[#ff0000]">*</span>
                                         </label>
-                                        <div className="flex bg-white border border-[#D5D5D5] rounded-md overflow-hidden focus-within:ring-1 focus-within:ring-[#0D468B] focus-within:border-[#0D468B]">
-                                            <div className="flex items-center justify-center px-4 py-3 border-r border-[#D5D5D5] bg-[#F9F9F9] cursor-pointer">
-                                                <img src="https://flagcdn.com/w20/in.png" alt="India Flag" className="w-[18px] h-auto mr-2 rounded-[2px]" />
-                                                <span className="text-[14px] text-[#4a4a4a] mr-1.5">+91</span>
-                                                <svg width="8" height="5" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M1 1L5 5L9 1" stroke="#4A4A4A" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                                </svg>
-                                            </div>
-                                            <input
-                                                type="tel"
-                                                required
-                                                value={phoneNumber}
-                                                onChange={(e) => setPhoneNumber(e.target.value)}
-                                                placeholder=""
-                                                className="w-full bg-transparent px-4 py-3 text-[15px] text-[#4a4a4a] focus:outline-none"
-                                            />
-                                        </div>
+                                        <PhoneInput
+                                            country={'in'}
+                                            value={phoneNumber}
+                                            onChange={phone => setPhoneNumber(phone)}
+                                            inputProps={{
+                                                required: true,
+                                                autoFocus: false,
+                                                placeholder: 'Enter Your Whatsapp Number'
+                                            }}
+                                            containerClass="focus-within:ring-1 focus-within:ring-[#0D468B] focus-within:border-[#0D468B] rounded-md transition-shadow"
+                                            inputStyle={{
+                                                width: '100%',
+                                                height: '48px',
+                                                fontSize: '15px',
+                                                color: '#4a4a4a',
+                                                borderColor: '#D5D5D5',
+                                                paddingLeft: '65px'
+                                            }}
+                                            buttonStyle={{
+                                                borderColor: '#D5D5D5',
+                                                backgroundColor: '#F9F9F9',
+                                                borderRight: '1px solid #D5D5D5',
+                                                borderRadius: '6px 0 0 6px',
+                                                padding: '0 8px',
+                                                width: '55px'
+                                            }}
+                                        />
                                     </div>
 
                                     <div className="mb-8 flex flex-col md:flex-row md:items-center gap-3 md:gap-4">
@@ -295,6 +304,17 @@ const PlanCheckout = () => {
             </main>
 
             <SharedFooter />
+
+            <StudentDetailsModal
+                isOpen={showModal}
+                paymentId={paymentId}
+                mobile={phoneNumber}
+                onClose={() => setShowModal(false)}
+                onSuccess={() => {
+                    setShowModal(false);
+                    navigate('/thank-you', { state: { language } });
+                }}
+            />
         </div>
     );
 };
