@@ -80,7 +80,7 @@ const StudentDetailsModal: React.FC<StudentDetailsModalProps> = ({ isOpen, payme
 
             const contentType = response.headers.get("content-type");
             if (contentType && contentType.indexOf("application/json") === -1) {
-                throw new Error("Proxy error: Received HTML instead of JSON. Please restart your dev server (Ctrl+C then npm run dev) to apply proxy settings.");
+                throw new Error("Server error: Unexpected response. Please try again later.");
             }
 
             const data = await response.json();
