@@ -29,7 +29,7 @@ interface StatusContent {
     contactNumber?: string;
 }
 
-const PLANS_URL = 'https://dailyyogawithjagan.com/plans';
+const PLANS_URL = 'https://plans.healthyday.co.in';
 
 const TimingsBlock: React.FC<{ language: 'Telugu' | 'English' }> = ({ language }) => (
     <div className="flex flex-col gap-1 items-center">
