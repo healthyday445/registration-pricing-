@@ -6,12 +6,12 @@ import RegistrationSuccessPopup from '../components/RegistrationSuccessPopup';
 import { Award, Users, Sun, Moon, Dumbbell, Wind, HeartPulse, Clock } from 'lucide-react';
 import frame129 from '../assets/image (36) (1).png';
 import smileySick from '../assets/streamline-freehand_smiley-sick-contageous.png';
-import PhoneInput from 'react-phone-input-2';
-import 'react-phone-input-2/lib/style.css';
+import PhoneInputCustom from '../components/PhoneInputCustom';
 const FreeProgrammes = () => {
     const [formData, setFormData] = useState({
         name: '',
         phone: '',
+        dialCode: '+91',
         language: 'Telugu'
     });
     const [popupStatus, setPopupStatus] = useState<string | null>(null);
@@ -33,7 +33,7 @@ const FreeProgrammes = () => {
 
             const payload = {
                 name: formData.name,
-                mobile: '+' + formData.phone,
+                mobile: formData.dialCode + formData.phone,
                 source: 'Website',
                 language: formData.language
             };
@@ -122,38 +122,12 @@ const FreeProgrammes = () => {
                                         />
                                     </div>
                                     <div className="w-full">
-                                        <PhoneInput
-                                            country={'in'}
+                                        <PhoneInputCustom
                                             value={formData.phone}
-                                            onChange={(phone) => setFormData(prev => ({ ...prev, phone }))}
-                                            inputStyle={{
-                                                width: '100%',
-                                                height: '55px',
-                                                fontSize: '16px',
-                                                paddingLeft: '48px',
-                                                borderRadius: '8px',
-                                                border: '1.2px solid #b4b4b4',
-                                                background: 'white',
-                                                color: '#202020'
-                                            }}
-                                            buttonStyle={{
-                                                border: '1.2px solid #b4b4b4',
-                                                borderRight: 'none',
-                                                borderRadius: '8px 0 0 8px',
-                                                background: '#f3f3f3'
-                                            }}
-                                            dropdownStyle={{
-                                                width: '300px'
-                                            }}
-                                            containerStyle={{
-                                                width: '100%'
-                                            }}
-                                            inputProps={{
-                                                name: 'phone',
-                                                required: true,
-                                                autoFocus: false,
-                                                placeholder: 'Enter Your Whatsapp Number'
-                                            }}
+                                            onChange={(phone, dialCode) => setFormData(prev => ({ ...prev, phone, dialCode }))}
+                                            placeholder="Enter Your Whatsapp Number"
+                                            required
+                                            defaultCountry="in"
                                         />
                                     </div>
                                 </div>
