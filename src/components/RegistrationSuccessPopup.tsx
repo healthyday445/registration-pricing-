@@ -65,6 +65,7 @@ const WhatsAppNote: React.FC<{ language: 'Telugu' | 'English' }> = ({ language }
 function getStatusContent(status: string): StatusContent {
     switch (status) {
         case 'success':
+        case 'new_registration':
         case 'free_eligible_again':
             return {
                 image: successPopupSvg,
