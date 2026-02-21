@@ -292,7 +292,7 @@ const PlanCheckout = () => {
             <StudentDetailsModal
                 isOpen={showModal}
                 paymentId={paymentId}
-                mobile={phoneNumber}
+                mobile={`${dialCode}${phoneNumber}`}
                 onClose={() => setShowModal(false)}
                 onSuccess={() => {
                     setShowModal(false);
