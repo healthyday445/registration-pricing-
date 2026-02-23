@@ -243,8 +243,16 @@ const RegistrationSuccessPopup: React.FC<RegistrationSuccessPopupProps> = ({
     const content = getStatusContent(status);
     const lang = language === 'English' ? 'en' : 'te';
 
+    const isNewRegistration = status === 'success' || status === 'new_registration' || status === 'free_eligible_again';
+    let popupId = '';
+    if (language === 'Telugu') {
+        popupId = isNewRegistration ? 'elementor-popup-modal-1316' : 'elementor-popup-modal-1336';
+    } else {
+        popupId = isNewRegistration ? 'elementor-popup-modal-1589' : 'elementor-popup-modal-1592';
+    }
+
     return (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+        <div id={popupId} className="elementor-popup-modal fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm" aria-modal="true" role="dialog">
             <div className="relative w-full max-w-[570px] bg-white flex flex-col items-center justify-center shadow-2xl rounded-2xl overflow-hidden p-8 px-4 gap-6 md:min-h-[400px]">
 
                 {/* Content Section */}
