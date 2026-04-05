@@ -32,9 +32,9 @@ const defaultPlan = {
     id: "6M_4",
     title: "6 Months Plan",
     duration: "6 Months Plan",
-    originalPrice: "2994",
-    discountPrice: "1499",
-    discount: "SAVE 50%!",
+    originalPrice: "2999",
+    discountPrice: "1899",
+    discount: "Save 37%!",
     isBestValue: true,
 };
 

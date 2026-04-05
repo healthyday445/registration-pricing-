@@ -7,28 +7,28 @@ const PricingCards = () => {
   const navigate = useNavigate();
   const plans = [
     {
-      duration: "1 Year",
-      price: "1999",
-      originalPrice: "5988",
-      discount: "65% OFF",
+      duration: "1 Year Including Diet*",
+      price: "2399",
+      originalPrice: "5999",
+      discount: "Save 60%!",
       isBestValue: true,
-      perMonth: "166",
+      perMonth: "200",
     },
     {
       duration: "6 Months",
-      price: "1499",
-      originalPrice: "2994",
-      discount: "50% OFF",
+      price: "1899",
+      originalPrice: "2999",
+      discount: "Save 37%!",
       isBestValue: false,
-      perMonth: "250",
+      perMonth: "317",
     },
     {
       duration: "3 Months",
-      price: "999",
-      originalPrice: "1497",
-      discount: "33% OFF",
+      price: "1399",
+      originalPrice: "1499",
+      discount: "Save 7%!",
       isBestValue: false,
-      perMonth: "333",
+      perMonth: "466",
     },
   ];
 
