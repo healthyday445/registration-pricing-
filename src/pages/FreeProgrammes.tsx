@@ -73,7 +73,7 @@ const FreeProgrammes = () => {
                         </div>
                         <div className="flex flex-col items-center gap-px">
                             <span className="font-semibold text-[16px] text-center underline text-[#202020]">WITH</span>
-                            <span className="font-semibold text-[28px] md:text-[36px] text-center text-[#202020]">JaganMohan Bhadragiri</span>
+                            <span className="font-semibold text-[28px] md:text-[36px] text-center text-[#202020]">Jagan</span>
                         </div>
                         <div className="flex flex-wrap items-center justify-center gap-4 px-2 pb-4 lg:pb-0">
                             {/* Card 1 */}

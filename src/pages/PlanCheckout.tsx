@@ -129,7 +129,7 @@ const PlanCheckout = () => {
                         <div className="order-2 lg:order-1">
                             <div className="mb-8 rounded-[24px] overflow-hidden">
                                 <img
-                                    src="https://healthyday.co.in/wp-content/uploads/2026/02/image-1.png"
+                                    src="https://s3.ap-south-1.amazonaws.com/rzp-prod-merchant-assets/payment-link/description/qm8mh28e2z5ev4.jpeg"
                                     alt="Yoga pose"
                                     className="w-full h-auto object-cover"
                                 />
