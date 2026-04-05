@@ -32,26 +32,26 @@ const Home = () => {
 
     const plans = [
         {
-            title: "1 Year Plan",
-            originalPrice: "5998",
-            discountPrice: "1999",
-            discount: "SAVE 66%!",
+            title: "1 Year Including Diet",
+            originalPrice: "5999",
+            discountPrice: "2399",
+            discount: "Save 60%!",
             isBestValue: true,
             buttonText: "JOIN NOW"
         },
         {
             title: "6 Months Plan",
-            originalPrice: "2994",
-            discountPrice: "1499",
-            discount: "SAVE 50%!",
+            originalPrice: "2999",
+            discountPrice: "1899",
+            discount: "Save 37%!",
             isBestValue: false,
             buttonText: "JOIN NOW"
         },
         {
             title: "3 Months Plan",
-            originalPrice: "1497",
-            discountPrice: "999",
-            discount: "SAVE 33%!",
+            originalPrice: "1499",
+            discountPrice: "1399",
+            discount: "Save 7%!",
             isBestValue: false,
             buttonText: "JOIN NOW"
         }

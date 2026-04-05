@@ -26,10 +26,10 @@ const SharedHeader = () => {
                 </div>
 
                 <nav className="hidden md:flex items-center space-x-12 text-[15px] font-semibold text-[#202020] tracking-wide uppercase">
-                    <a href="https://healthyday.co.in/" className="hover:text-[#ffb129] transition-colors">HOME</a>
+                    <a href="https://wa.me/918008153968" target="_blank" rel="noopener noreferrer" className="hover:text-[#ffb129] transition-colors">HOME</a>
                     <Link to="/#pricing" className="hover:text-[#ffb129] transition-colors">PRICING</Link>
                     <a href="https://yoga.healthyday.co.in" className="hover:text-[#ffb129] transition-colors">FREE PROGRAMMES</a>
-                    <a href="https://healthyday.co.in/contact-us/" className="hover:text-[#ffb129] transition-colors">CONTACT US</a>
+                    <a href="https://wa.me/918008153968" target="_blank" rel="noopener noreferrer" className="hover:text-[#ffb129] transition-colors">CONTACT US</a>
                 </nav>
 
                 <a href="https://yoga.healthyday.co.in" className="hidden md:block">
@@ -56,10 +56,10 @@ const SharedHeader = () => {
                         </div>
 
                         <div className="flex flex-col items-center space-y-6 text-[17px] font-semibold text-[#202020] uppercase tracking-wide">
-                            <a href="https://healthyday.co.in/" onClick={() => setIsMenuOpen(false)} className="hover:text-[#ffb129] transition-colors">HOME</a>
+                            <a href="https://wa.me/918008153968" target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)} className="hover:text-[#ffb129] transition-colors">HOME</a>
                             <Link to="/#pricing" onClick={() => setIsMenuOpen(false)} className="hover:text-[#ffb129] transition-colors">PRICING</Link>
                             <a href="https://yoga.healthyday.co.in" onClick={() => setIsMenuOpen(false)} className="hover:text-[#ffb129] transition-colors">FREE PROGRAMMES</a>
-                            <a href="https://healthyday.co.in/contact-us/" onClick={() => setIsMenuOpen(false)} className="hover:text-[#ffb129] transition-colors">CONTACT US</a>
+                            <a href="https://wa.me/918008153968" target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)} className="hover:text-[#ffb129] transition-colors">CONTACT US</a>
                             <a href="https://yoga.healthyday.co.in" onClick={() => setIsMenuOpen(false)}>
                                 <button className="mt-4 bg-[#ffb129] border-2 border-[#ffb129] px-8 py-3 rounded-full font-medium text-[16px] shadow-lg text-black uppercase tracking-wide transition-all duration-300 hover:bg-white hover:text-[#202020]">
                                     JOIN FREE CLASSES
