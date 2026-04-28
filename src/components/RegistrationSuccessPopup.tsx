@@ -243,12 +243,13 @@ const RegistrationSuccessPopup: React.FC<RegistrationSuccessPopupProps> = ({
     const content = getStatusContent(status);
     const lang = language === 'English' ? 'en' : 'te';
 
-    const isNewRegistration = status === 'success' || status === 'new_registration' || status === 'free_eligible_again';
+    const isNewRegistration = status === 'success' || status === 'new_registration';
+    const isFreeEligibleAgain = status === 'free_eligible_again';
     let popupId = '';
     if (language === 'Telugu') {
-        popupId = isNewRegistration ? 'elementor-popup-modal-1316' : 'elementor-popup-modal-1336';
+        popupId = isFreeEligibleAgain ? 'elementor-popup-modal-1330' : isNewRegistration ? 'elementor-popup-modal-1316' : 'elementor-popup-modal-1336';
     } else {
-        popupId = isNewRegistration ? 'elementor-popup-modal-1589' : 'elementor-popup-modal-1592';
+        popupId = isFreeEligibleAgain ? 'elementor-popup-modal-1331' : isNewRegistration ? 'elementor-popup-modal-1589' : 'elementor-popup-modal-1592';
     }
 
     return (
