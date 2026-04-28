@@ -75,13 +75,12 @@ const FreeProgrammes = ({ defaultLanguage = 'Telugu' }: FreeProgrammesProps) => 
 
                 (window as any).dataLayer = (window as any).dataLayer || [];
                 (window as any).dataLayer.push({
-                    'event': 'registration_success',
                     'user_data': {
                         'phone_number': formattedPhone,
-                        'first_name': formData.name
+                        'first_name': formData.name,
+                        'page_language': formData.language === 'English' ? 'English' : 'Telugu'
                     },
-                    'popup_id': currentPopupId,
-                    'page_language': formData.language === 'English' ? 'English' : 'Telugu'
+                    'popup_id': currentPopupId
                 });
                 // --- End GTM Data Layer Push ---
 
