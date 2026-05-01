@@ -33,7 +33,7 @@ const FreeProgrammes = ({ defaultLanguage = 'Telugu' }: FreeProgrammesProps) => 
 
         try {
             const searchParams = new URLSearchParams(window.location.search);
-            const source = searchParams.get('source') || 'website_organic';
+            const source = searchParams.get('source') || searchParams.get('ref') || 'website_organic';
 
             const gclid = sessionStorage.getItem('gclid_persistent');
             const fbclid = sessionStorage.getItem('fbclid_persistent');
