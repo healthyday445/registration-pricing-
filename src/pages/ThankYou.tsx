@@ -118,7 +118,7 @@ const ThankYou = () => {
                                         </svg>
                                     </span>
                                     <p className="text-[16px] leading-[24px] font-normal text-slate-900">
-                                        Healthy Healthtech Private Ltd, <br />
+                                        Healthyday Healthtech Private Ltd, <br />
                                         Near Scotspine School, Kanuru - Autonagar Road, Vijayawada, <br />
                                         Andhra Pradesh - 520007
                                     </p>
