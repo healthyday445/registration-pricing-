@@ -8,16 +8,17 @@ import frame129 from '../assets/image (36) (1).png';
 import smileySick from '../assets/streamline-freehand_smiley-sick-contageous.png';
 import PhoneInputCustom from '../components/PhoneInputCustom';
 interface FreeProgrammesProps {
-    defaultLanguage?: 'Telugu' | 'English';
+    defaultLanguage?: 'Telugu' | 'English' | '';
 }
 
-const FreeProgrammes = ({ defaultLanguage = 'Telugu' }: FreeProgrammesProps) => {
+const FreeProgrammes = ({ defaultLanguage = '' }: FreeProgrammesProps) => {
     const [formData, setFormData] = useState({
         name: '',
         phone: '',
         dialCode: '+91',
         language: defaultLanguage
     });
+    const [languageError, setLanguageError] = useState(false);
     const [popupStatus, setPopupStatus] = useState<string | null>(null);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,6 +31,12 @@ const FreeProgrammes = ({ defaultLanguage = 'Telugu' }: FreeProgrammesProps) => 
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        if (!formData.language) {
+            setLanguageError(true);
+            return;
+        }
+        setLanguageError(false);
 
         try {
             const searchParams = new URLSearchParams(window.location.search);
@@ -190,30 +197,35 @@ const FreeProgrammes = ({ defaultLanguage = 'Telugu' }: FreeProgrammesProps) => 
                                         />
                                     </div>
                                 </div>
-                                <div className="w-full flex items-center gap-3 py-1">
-                                    <span className="font-medium text-[14px] text-[#202020] whitespace-nowrap">Select Class Language:</span>
-                                    <label className="flex items-center gap-1.5 cursor-pointer">
-                                        <input
-                                            type="radio"
-                                            name="language"
-                                            value="Telugu"
-                                            checked={formData.language === 'Telugu'}
-                                            onChange={handleInputChange}
-                                            className="w-4 h-4 accent-[#0d468b]"
-                                        />
-                                        <span className="text-[14px] text-[#202020] font-medium">తెలుగు</span>
-                                    </label>
-                                    <label className="flex items-center gap-1.5 cursor-pointer">
-                                        <input
-                                            type="radio"
-                                            name="language"
-                                            value="English"
-                                            checked={formData.language === 'English'}
-                                            onChange={handleInputChange}
-                                            className="w-4 h-4 accent-[#0d468b]"
-                                        />
-                                        <span className="text-[14px] text-[#202020] font-medium">English</span>
-                                    </label>
+                                <div className="w-full flex flex-col gap-1">
+                                    <div className="w-full flex items-center gap-3 py-1">
+                                        <span className={`font-medium text-[14px] whitespace-nowrap ${languageError ? 'text-red-500' : 'text-[#202020]'}`}>Select Class Language: <span className="text-red-500">*</span></span>
+                                        <label className="flex items-center gap-1.5 cursor-pointer">
+                                            <input
+                                                type="radio"
+                                                name="language"
+                                                value="Telugu"
+                                                checked={formData.language === 'Telugu'}
+                                                onChange={(e) => { handleInputChange(e); setLanguageError(false); }}
+                                                className="w-4 h-4 accent-[#0d468b]"
+                                            />
+                                            <span className="text-[14px] text-[#202020] font-medium">తెలుగు</span>
+                                        </label>
+                                        <label className="flex items-center gap-1.5 cursor-pointer">
+                                            <input
+                                                type="radio"
+                                                name="language"
+                                                value="English"
+                                                checked={formData.language === 'English'}
+                                                onChange={(e) => { handleInputChange(e); setLanguageError(false); }}
+                                                className="w-4 h-4 accent-[#0d468b]"
+                                            />
+                                            <span className="text-[14px] text-[#202020] font-medium">English</span>
+                                        </label>
+                                    </div>
+                                    {languageError && (
+                                        <span className="text-red-500 text-[12px] font-medium pl-1">⚠ Please select a class language to continue.</span>
+                                    )}
                                 </div>
                                 <button type="submit" className="w-full h-[56px] bg-[#feab27] border-[2px] border-transparent hover:bg-white hover:border-[#feab27] transition-colors rounded-full flex items-center justify-center cursor-pointer shadow-lg hover:shadow-xl transform active:scale-95 duration-200 group">
                                     <span className="font-bold text-[18px] text-[#202020] uppercase tracking-wide group-hover:text-[#202020]">Register For Free</span>
@@ -299,7 +311,7 @@ const FreeProgrammes = ({ defaultLanguage = 'Telugu' }: FreeProgrammesProps) => 
                 isOpen={popupStatus !== null}
                 onClose={() => setPopupStatus(null)}
                 status={popupStatus}
-                language={formData.language as 'Telugu' | 'English'}
+                language={(formData.language || 'Telugu') as 'Telugu' | 'English'}
             />
         </div>
     );
